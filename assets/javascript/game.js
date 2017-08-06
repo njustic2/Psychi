@@ -1,70 +1,97 @@
 // <script type="text/javascript">
-// first the user should make a choice
-//second the computer should make a choice
-//capture the choice of the user and capture the choice of the computer
-//compare the choices and determine a win, loss or tie
-//display the result to the user
+// Psuedocode
+// 1. The user should guess a letter
+// 2. Capture the choice of the user and generate a computer choice
+// 3. Compare the choices 
+// 4. If user choice is equals to computer generated choice then display win. Also increase the win counter
+// 5. If none of the user choice match the computer generated choice, then let the user enter upto 9 choices.
+// 6. If none of the 9 choice match the computer choice then display loss and increase the loss counter
+// 7. Also, display the number of losses left in the 9 tries
+//    and display the letters that the user entered
 	
-	var options = ["d","o","g"];
+
+//declare variables and arrays
 	var wins = 0;
 	var losses = 0;
-	var guess = 0;
+	var guess = ' ';
+	var count = 10;
+	var options = ["t","r","i","a","n"];// and array of options that the computer cna choose from
 
-	//This will display working on the screen when any key on the keyboard is pressed.
+	//1. This function reads what the user presses on the keyboard and displays an alert.This command, onkeyup, 
+	//   is used to read from the keyboard whether the user is pressing anything or not
 	document.onkeyup = function(){
-		alert("Guess what letter I am thinking of by pressing a key from the keyboard");
+	alert("Guess what letter I am thinking of by pressing a key from the keyboard");
 
-		//next capture what the user is actually pressing
-		var userguess = String.fromCharCode(event.keyCode).toLowerCase();// is handling user error just to make sure only the lower case is given to the computer.
-
-		console.log(userguess);
-
-		var computerGuess = options[Math.floor(Math.random()*options.length)];
+		//2.2 Generate a computer choice
+		var computerGuess = options[Math.floor(Math.random()*options.length)];//the math.floor... formula choses randomly from 
+		// the array variable named options declared in the global area with contents train and rounds the number down to the nearest degit 
 		console.log(computerGuess);
 
-		if (userguess=='d' || userguess=='o' || userguess=='g') {
 
-			if((userguess=='d') && (computerGuess=='d')) {
-				alert("You Guess correct!");
-				wins++;
-			}
+	    if (guess.length < 10) { //5.2 user should enter 9 more choices
+	    	count--;
 
-			if((userguess=='o') && (computerGuess=='o')) {
-				alert("You Guess correct!!");
-				wins++;
-			}
+			//2.1 Next capture what the user is actually pressing
+			// The command starting at event.keycode, attaches the value of the key code to the key that was pressed, 
+			// take that character and turn it into a string, the toLowerCase command is used to convert whatever key that is pressed
+			// to lower case letter. is handling user error just to make sure only the lower case is given to the computer.
+			var userguess = String.fromCharCode(event.keyCode).toLowerCase();
+			guess+= userguess;//This makes sure that no letter is over written
+			console.log(userguess);
+			console.log(guess);
 
-			if((userguess=='g') && (computerGuess=='g')) {
-				alert("You Guess correct!");
-				wins++;
-			}
+			
 
-			if((userguess=='s') && (computerGuess=='r')) {
-				alert("You Guess wrong!");
-				losses++;
-			}
+				//3. Compare choices
+			  if (userguess == "t" || userguess =="r" || userguess =="a" || userguess=="i" || userguess =="n") {
+				//4.1 if user choice is equal to computer choice
+				if((userguess=='t') && (computerGuess=='t')){
+					wins++;
+					document.guess.reset();
+					document.count.reset();
+				}
 
-			if((userguess=='p') && (computerGuess=='s')) {
-				alert("You Guess wrong!");
-				losses++;
-			}
+				
+				if ((userguess=='r') && (computerGuess=='r')) {
+					wins++;
+					document.guess.reset();
+					document.count.reset();
+				}
+				
+				if ((userguess=='i') && (computerGuess=='i')){
+					wins++;
+					document.guess.reset();
+					document.count.reset();
+				}
 
-			if((userguess=='p') && (computerGuess=='r')) {
-				alert("You Guess wrong!");
-				losses++;
-			}
+				if ((userguess=='a') && (computerGuess=='a')){
+					wins++;
+					document.guess.reset();
+					document.count.reset();
+				}
+					   
+				if ((userguess=='n') && (computerGuess=='n')){
+					wins++;
+					document.guess.reset();
+					document.count.reset();
+				} //5.1  None of the user choice match computer generated choice
+					
+				else { //6.1 None of the 9 choices match the computer choice
+						alert("press t or r or a or i or n to increase your chances of guessing correctly");
+						// losses++; //6.2 Display loss
+						
+				} //6.3 Increase the loss counter
+			  }
+	    }	
+
+			
+			// Also, display the number of losses left in the 9 tries 
+			// Display the letters that the user entered
 
 
-			// if((userguess=='r') && (computerGuess=='r')) {
-				// alert("You tie!");
-				// ties++;
-			// }
-
-		} else {
-				alert("Please press a letter from the keyboard");
-		}
-
-		var html = "<h1> The Psychic Game </h1>" + "<p> Guess what letter I am thinking of... </p>" + "<p> Wins: " + wins + "</p>" + "<p> losses: " + losses + "</p>" + "<p> Guess Left: " + guess + "</p>";
+		// Display the wins, loss and the title of the game.
+		var html = "<h1> The Psychic Game </h1>" + "<p> Guess what letter I am thinking of... </p>" + "<p> Wins: " 
+		+ wins + "</p>" + "<p> losses: " + losses + "</p>" + "<p> Guesses left: " + count + "</p>" + "<p> Your Guesses so far: " + guess + "</p>";
 
 		document.querySelector('#game').innerHTML = html;
 	}
