@@ -19,7 +19,7 @@
 	function doudge() {
    		guess = '';
    		count = 9;
-   	}
+	}
 
 	//1. This function reads what the user presses on the keyboard and displays an alert.This command, onkeyup, 
 	//   is used to read from the keyboard whether the user is pressing anything or not
